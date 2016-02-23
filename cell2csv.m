@@ -16,15 +16,13 @@ function cell2csv(fileName,cellArray)
 
 			cellValue = cellArray{m,n};
 
-			switch class(cellValue)
+			if ischar(cellValue)
 
-				case 'char'
+				fileRow = [fileRow,cellValue,','];
 
-					fileRow = [fileRow,cellValue,','];
+			elseif isnumeric(cellValue)
 
-				case 'double'
-
-					fileRow = [fileRow,num2str(cellValue),','];
+				fileRow = [fileRow,num2str(cellValue),','];
 
 			end
 
