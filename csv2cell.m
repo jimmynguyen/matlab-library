@@ -28,6 +28,14 @@ function arr = csv2cell(fileName)
 
 		end
 
+		if delimiterIndices(end) < length(line)
+
+			content = line(delimiterIndices(end)+1:end);
+
+			row = [row, {formatContent(content)}];
+
+		end
+
 		arr = [arr; row];
 
 		line = fgetl(fh);
