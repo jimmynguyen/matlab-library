@@ -1,6 +1,15 @@
 % CELL2CSV Write cell array to csv file
 %   cell2csv(fileName,cellArray)
 %
+%	Input(s):
+%		fileName (char)
+%			- name of .csv file you want to write to (should include .csv)
+%		cellArray (cell)
+%			- cell array you want to write to the .csv file
+%
+%	Output file(s):
+%		.csv file
+%	
 %   @author: Jimmy Nguyen
 function cell2csv(fileName,cellArray)
 

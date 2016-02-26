@@ -1,6 +1,14 @@
 % CSV2CELL Read csv file into cell array
 %   arr = csv2cell(fileName)
 %
+%	Input(s):
+%		fileName (char)
+%			- name of .csv file you want to read from
+%
+%	Output(s)
+%		arr (cell)
+%			- cell array containing the contents of the .csv file
+%
 %   @author: Jimmy Nguyen
 function arr = csv2cell(fileName)
 
