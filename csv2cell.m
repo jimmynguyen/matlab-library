@@ -42,7 +42,13 @@ function arr = csv2cell(fileName)
 
 			row = [row, {formatContent(content)}];
 
-		end
+        end
+        
+        if length(row) < size(arr,2)
+           
+            row{size(arr,2)} = [];
+            
+        end
 
 		arr = [arr; row];
 
