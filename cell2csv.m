@@ -37,7 +37,7 @@ function cell2csv(fileName,cellArray)
 
 		end
 
-		file = [file,sprintf('\n'),fileRow];
+		file = [file,sprintf('\n'),fileRow(1:end-1)];
 
 	end
 
