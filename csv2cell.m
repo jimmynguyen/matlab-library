@@ -24,32 +24,40 @@ function arr = csv2cell(fileName,delimiter)
 
 		delimiterIndices = find(line==delimiter);
 
-		content = line(1:(delimiterIndices(1)-1));
+        if isempty(delimiterIndices)
+            
+            content = line;
+            row = [row, {formatContent(content)}];
+            
+        else
+            content = line(1:(delimiterIndices(1)-1));
 
-		row = [row, {formatContent(content)}];
+            row = [row, {formatContent(content)}];
 
-		for ndx = 2:length(delimiterIndices)
+            for ndx = 2:length(delimiterIndices)
 
-			content = line((delimiterIndices(ndx-1)+1):(delimiterIndices(ndx)-1));
+                content = line((delimiterIndices(ndx-1)+1):(delimiterIndices(ndx)-1));
 
-			row = [row, {formatContent(content)}];
+                row = [row, {formatContent(content)}];
 
-		end
+            end
 
-		if delimiterIndices(end) < length(line)
+            if delimiterIndices(end) < length(line)
 
-			content = line(delimiterIndices(end)+1:end);
+                content = line(delimiterIndices(end)+1:end);
 
-			row = [row, {formatContent(content)}];
+                row = [row, {formatContent(content)}];
+
+            end
+
+            if length(row) < size(arr,2)
+
+                row{size(arr,2)} = [];
+
+            end
 
         end
         
-        if length(row) < size(arr,2)
-           
-            row{size(arr,2)} = [];
-            
-        end
-
 		arr = [arr; row];
 
 		line = fgetl(fh);
