@@ -1,6 +1,15 @@
 % CELL2CSV Write cell array to csv file
 %   cell2csv(fileName,cellArray)
 %
+%	Input(s):
+%		fileName (char)
+%			- name of .csv file you want to write to (should include .csv)
+%		cellArray (cell)
+%			- cell array you want to write to the .csv file
+%
+%	Output file(s):
+%		.csv file
+%	
 %   @author: Jimmy Nguyen
 function cell2csv(fileName,cellArray,delimiter)
 
@@ -16,13 +25,11 @@ function cell2csv(fileName,cellArray,delimiter)
 
 			cellValue = cellArray{m,n};
 
-			switch class(cellValue)
-
-				case 'char'
+			if ischar(cellValue)
 
 					fileRow = [fileRow,cellValue,delimiter];
 
-				case 'double'
+			elseif isnumeric(cellValue)
 
 					fileRow = [fileRow,num2str(cellValue),delimiter];
 
@@ -30,7 +37,7 @@ function cell2csv(fileName,cellArray,delimiter)
 
 		end
 
-		file = [file,sprintf('\n'),fileRow];
+		file = [file,sprintf('\n'),fileRow(1:end-1)];
 
 	end
 

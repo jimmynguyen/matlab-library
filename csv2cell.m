@@ -1,6 +1,14 @@
 % CSV2CELL Read csv file into cell array
 %   arr = csv2cell(fileName)
 %
+%	Input(s):
+%		fileName (char)
+%			- name of .csv file you want to read from
+%
+%	Output(s)
+%		arr (cell)
+%			- cell array containing the contents of the .csv file
+%
 %   @author: Jimmy Nguyen
 function arr = csv2cell(fileName,delimiter)
 
@@ -27,6 +35,20 @@ function arr = csv2cell(fileName,delimiter)
 			row = [row, {formatContent(content)}];
 
 		end
+
+		if delimiterIndices(end) < length(line)
+
+			content = line(delimiterIndices(end)+1:end);
+
+			row = [row, {formatContent(content)}];
+
+        end
+        
+        if length(row) < size(arr,2)
+           
+            row{size(arr,2)} = [];
+            
+        end
 
 		arr = [arr; row];
 
