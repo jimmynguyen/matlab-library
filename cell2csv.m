@@ -2,7 +2,7 @@
 %   cell2csv(fileName,cellArray)
 %
 %   @author: Jimmy Nguyen
-function cell2csv(fileName,cellArray)
+function cell2csv(fileName,cellArray,delimiter)
 
 	[M,N] = size(cellArray);
 
@@ -20,11 +20,11 @@ function cell2csv(fileName,cellArray)
 
 				case 'char'
 
-					fileRow = [fileRow,cellValue,','];
+					fileRow = [fileRow,cellValue,delimiter];
 
 				case 'double'
 
-					fileRow = [fileRow,num2str(cellValue),','];
+					fileRow = [fileRow,num2str(cellValue),delimiter];
 
 			end
 

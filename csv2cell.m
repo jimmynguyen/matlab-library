@@ -2,7 +2,7 @@
 %   arr = csv2cell(fileName)
 %
 %   @author: Jimmy Nguyen
-function arr = csv2cell(fileName)
+function arr = csv2cell(fileName,delimiter)
 
 	fh = fopen(fileName);
 
@@ -14,7 +14,7 @@ function arr = csv2cell(fileName)
 
 		row = {};
 
-		delimiterIndices = find(line==',');
+		delimiterIndices = find(line==delimiter);
 
 		content = line(1:(delimiterIndices(1)-1));
 
