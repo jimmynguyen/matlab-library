@@ -1,34 +1,45 @@
 % CSV2CELL Read csv file into cell array
 %   arr = csv2cell(fileName)
+%   arr = csv2cell(fileName,delimiter)
 %
-%	Input(s):
-%		fileName (char)
-%			- name of .csv file you want to read from
+%   Input(s):
+%       fileName (char)
+%           - name of .csv file you want to read from
+%       delimiter (char)
+%           - (optional) delimiter used in the file. The default delimiter is a comma
 %
-%	Output(s)
-%		arr (cell)
-%			- cell array containing the contents of the .csv file
+%   Output(s)
+%       arr (cell)
+%           - cell array containing the contents of the .csv file
 %
 %   @author: Jimmy Nguyen
-function arr = csv2cell(fileName,delimiter)
+function arr = csv2cell(fileName, varargin)
 
-	fh = fopen(fileName);
+    delimiter = ',';
 
-	line = fgetl(fh);
+    if nargin == 2
+        delimiter = varargin{1};
+    elseif nargin > 2
+        error('Too many inputs');
+    end
 
-	arr = [];
+    fh = fopen(fileName);
 
-	while ischar(line)
+    line = fgetl(fh);
 
-		row = {};
+    arr = [];
 
-		delimiterIndices = find(line==delimiter);
+    while ischar(line)
+
+        row = {};
+
+        delimiterIndices = find(line==delimiter);
 
         if isempty(delimiterIndices)
-            
+
             content = line;
             row = [row, {formatContent(content)}];
-            
+
         else
             content = line(1:(delimiterIndices(1)-1));
 
@@ -57,14 +68,14 @@ function arr = csv2cell(fileName,delimiter)
             end
 
         end
-        
-		arr = [arr; row];
 
-		line = fgetl(fh);
+        arr = [arr; row];
 
-	end
+        line = fgetl(fh);
 
-	fclose(fh);
+    end
+
+    fclose(fh);
 
 end
 
@@ -74,10 +85,10 @@ end
 %   @author: Jimmy Nguyen
 function content = formatContent(content)
 
-	if all(content >= '0' & content <= '9' | content == '.')
+    if all(content >= '0' & content <= '9' | content == '.')
 
-		content = str2num(content);
+        content = str2num(content);
 
-	end
+    end
 
 end

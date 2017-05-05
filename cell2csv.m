@@ -1,52 +1,63 @@
 % CELL2CSV Write cell array to csv file
 %   cell2csv(fileName,cellArray)
+%   cell2csv(fileName,cellArray,delimiter)
 %
-%	Input(s):
-%		fileName (char)
-%			- name of .csv file you want to write to (should include .csv)
-%		cellArray (cell)
-%			- cell array you want to write to the .csv file
+%   Input(s):
+%       fileName (char)
+%           - name of .csv file you want to write to (should include .csv)
+%       cellArray (cell)
+%           - cell array you want to write to the .csv file
+%       delimiter (char)
+%           - (optional) delimiter to use in the file. The default delimiter is a comma
 %
-%	Output file(s):
-%		.csv file
-%	
+%   Output file(s):
+%       .csv file
+%
 %   @author: Jimmy Nguyen
-function cell2csv(fileName,cellArray,delimiter)
+function cell2csv(fileName,cellArray,varargin)
 
-	[M,N] = size(cellArray);
+    delimiter = ',';
 
-	file = '';
+    if nargin == 3
+        delimiter = varargin{1};
+    elseif nargin > 3
+        error('Too many inputs');
+    end
 
-	for m = 1:M
+    [M,N] = size(cellArray);
 
-		fileRow = '';
+    file = '';
 
-		for n = 1:N
+    for m = 1:M
 
-			cellValue = cellArray{m,n};
+        fileRow = '';
 
-			if ischar(cellValue)
+        for n = 1:N
 
-					fileRow = [fileRow,cellValue,delimiter];
+            cellValue = cellArray{m,n};
 
-			elseif isnumeric(cellValue)
+            if ischar(cellValue)
 
-					fileRow = [fileRow,num2str(cellValue),delimiter];
+                    fileRow = [fileRow,cellValue,delimiter];
 
-			end
+            elseif isnumeric(cellValue)
 
-		end
+                    fileRow = [fileRow,num2str(cellValue),delimiter];
 
-		file = [file,sprintf('\n'),fileRow(1:end-1)];
+            end
 
-	end
+        end
 
-	% remove starting new line character
-	file(1) = [];
+        file = [file,sprintf('\n'),fileRow(1:end-1)];
 
-	% write csv file
-	fh = fopen(fileName,'w');
-	fprintf(fh,file);
-	fclose(fh);
+    end
+
+    % remove starting new line character
+    file(1) = [];
+
+    % write csv file
+    fh = fopen(fileName,'w');
+    fprintf(fh,file);
+    fclose(fh);
 
 end
